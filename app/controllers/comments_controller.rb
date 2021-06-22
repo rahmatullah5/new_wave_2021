@@ -18,7 +18,7 @@ class CommentsController < ApplicationController
 
   # POST /comments
   def create
-    @comment = Comment.new(comment_params)
+    @comment = @current_user.comments.new(comment_params)
 
     if @comment.save
       render json: @comment, status: :created
@@ -29,7 +29,7 @@ class CommentsController < ApplicationController
 
   # PATCH/PUT /comments/1
   def update
-    if @comment.update(comment_params)
+    if @current_user.comments.find(params[:id]).update(comment_params)
       render json: @comment
     else
       render json: @comment.errors, status: :unprocessable_entity
@@ -38,7 +38,7 @@ class CommentsController < ApplicationController
 
   # DELETE /comments/1
   def destroy
-    @comment.destroy
+    @current_user.comments.find(params[:id]).destroy
   end
 
   private

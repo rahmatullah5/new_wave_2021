@@ -17,7 +17,7 @@ class PostsController < ApplicationController
 
   # POST /posts
   def create
-    @post = Post.new(post_params)
+    @post = @current_user.posts.new(post_params)
 
     if @post.save
       render json: @post, status: :created, location: @post
@@ -28,7 +28,7 @@ class PostsController < ApplicationController
 
   # PATCH/PUT /posts/1
   def update
-    if @post.update(post_params)
+    if @current_user.posts.find(params[:id]).update(post_params)
       render json: @post
     else
       render json: @post.errors, status: :unprocessable_entity
@@ -37,7 +37,7 @@ class PostsController < ApplicationController
 
   # DELETE /posts/1
   def destroy
-    @post.destroy
+    @current_user.posts.find(params[:id]).destroy
   end
 
   private
