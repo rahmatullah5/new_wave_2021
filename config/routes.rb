@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  resources :users do
+  resources :auth, only: :create
+  resources :users
   resources :posts do
     resources :comments
   end
