@@ -17,6 +17,9 @@ jobs:
           command: bundle -v
       - ruby/bundle-install
       - run:
+          name: Bundle install for default environment
+          command: bundle install
+      - run:
           name: Bundle install for test environment
           command: RAILS_ENV=test bundle install
       - run:
