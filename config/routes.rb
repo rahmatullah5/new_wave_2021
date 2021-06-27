@@ -3,9 +3,9 @@
 Rails.application.routes.draw do
   resources :auth, only: :create
   resources :users do
-    namespace :users do
+    scope module: :users do
       resources :posts do
-        namespace :posts do
+        scope module:  :posts do
           resources :comments
         end
       end

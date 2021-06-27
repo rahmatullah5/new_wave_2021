@@ -2,7 +2,7 @@
 
 module Users
   module Posts
-    class CommentsController < ActionController::API
+    class CommentsController < ApplicationController
       before_action :check_user_policy
       before_action :set_post
       before_action :set_comment, only: %i[show update destroy]
@@ -58,10 +58,6 @@ module Users
       # Only allow a trusted parameter "white list" through.
       def comment_params
         params.permit(:user_id, :post_id, :content)
-      end
-
-      def check_user_policy
-        render json: "You're unauthorized", status: :unauthorized if params[:user_id] != @current_user.id
       end
     end
   end

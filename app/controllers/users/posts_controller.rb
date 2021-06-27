@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
 module Users
-  class PostsController < ActionController::API
+  class PostsController < ApplicationController
     before_action :check_user_policy
     before_action :set_post, only: %i[show update destroy]
     # GET /posts
     def index
-      @posts = current_user.posts
+      @posts = @current_user.posts
 
       render json: @posts
     end
@@ -51,10 +51,6 @@ module Users
     # Only allow a trusted parameter "white list" through.
     def post_params
       params.permit(:user_id, :title, :content)
-    end
-
-    def check_user_policy
-      render json: "You're unauthorized", status: :unauthorized if params[:user_id] != @current_user.id
     end
   end
 end
