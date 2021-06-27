@@ -4,6 +4,10 @@ class ApplicationController < ActionController::API
   include ExceptionHandler
   before_action :authorize_request, except: :current_user
 
+  def check_user_policy
+    render json: "You're unauthorized", status: :unauthorized if params[:user_id].to_i != @current_user.id
+  end
+
   private
 
   def authorize_request
