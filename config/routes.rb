@@ -2,7 +2,16 @@
 
 Rails.application.routes.draw do
   resources :auth, only: :create
-  resources :users
+  resources :users do
+    namespace :users do
+      resources :posts do
+        namespace :posts do
+          resouces :comments
+        end
+      end
+    end
+  end
+
   resources :posts do
     resources :comments
   end

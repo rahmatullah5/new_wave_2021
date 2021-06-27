@@ -5,7 +5,7 @@ class AuthController < ApplicationController
   def create
     user = User.find_by(email: params[:email])
     if user&.authenticate(params[:password])
-      render json: { token: Jwt::Authenticator.encode(user_id: user.id) }, status: :ok
+      render json: {token: Jwt::Authenticator.encode(user_id: user.id)}, status: :ok
     else
       render json: {}, status: :unauthorized
     end

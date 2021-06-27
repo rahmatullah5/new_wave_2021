@@ -6,7 +6,7 @@ class CommentsController < ApplicationController
 
   # GET /comments
   def index
-    @comments = Comment.all
+    @comments = @post.comments.all
 
     render json: @comments
   end
@@ -16,36 +16,11 @@ class CommentsController < ApplicationController
     render json: @comment
   end
 
-  # POST /comments
-  def create
-    @comment = @current_user.comments.new(comment_params)
-
-    if @comment.save
-      render json: @comment, status: :created
-    else
-      render json: @comment.errors, status: :unprocessable_entity
-    end
-  end
-
-  # PATCH/PUT /comments/1
-  def update
-    if @current_user.comments.find(params[:id]).update(comment_params)
-      render json: @comment
-    else
-      render json: @comment.errors, status: :unprocessable_entity
-    end
-  end
-
-  # DELETE /comments/1
-  def destroy
-    @current_user.comments.find(params[:id]).destroy
-  end
-
   private
 
   # Use callbacks to share common setup or constraints between actions.
   def set_comment
-    @comment = Comment.find(params[:id])
+    @comment = @post.comments.find(params[:id])
   end
 
   def set_post
