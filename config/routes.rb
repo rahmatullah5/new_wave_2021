@@ -6,7 +6,7 @@ Rails.application.routes.draw do
     namespace :users do
       resources :posts do
         namespace :posts do
-          resouces :comments
+          resources :comments
         end
       end
     end
